@@ -50,15 +50,15 @@ async def start(event):
     replied_user = await event.client(GetFullUserRequest(event.sender_id))
     firstname = replied_user.user.first_name
     vent = event.chat_id
-    starttext = (f"Hello, {firstname} ! Nice To Meet You, Well I Am {bot_id}, An Powerfull Assistant Bot. \n\nMy [➤ Master](tg://user?id={bot.uid}) \nYou Can Talk/Contact My Master Using This Bot. \n\nIf You Want Your Own Assistant You Can Deploy From Button Below. \n\nPowered By [Friday Userbot](t.me/FridayOT)")
+    starttext = (f"Hey ciao, {firstname} ! Sono felice di parlare con te, Io sono {bot_id}, ovvero il bot aiutante del mio [Padrone](tg://user?id={bot.uid}) \nPuoi parlare con il mio padrone tramite questo bot.
     if event.sender_id == bot.uid:
         await tgbot.send_message(
            vent,
-           message=f"Hi Master, It's Me {bot_id}, Your Assistant ! \nWhat You Wanna Do today ?",
+           message=f"hey, io sono {bot_id}, Il tuo assistente ! \nCosa ti serve ? cercherò di aiutarti :)",
            buttons = [
-           [custom.Button.inline("Show Users 🔥", data="users")],
-           [custom.Button.inline("Commands For Assistant", data="gibcmd")],
-           [Button.url("Add Me to Group 👥", f"t.me/{bot_username}?startgroup=true")]
+           [custom.Button.inline("Lista utenti 🔥", data="users")],
+           [custom.Button.inline("I miei comandi", data="gibcmd")],
+           [Button.url("Aggiungimi a un gruppo 👥", f"t.me/{bot_username}?startgroup=true")]
             ]
            )
     else:
@@ -73,27 +73,10 @@ async def start(event):
            message=starttext,
            link_preview=False,
            buttons = [
-           [custom.Button.inline("Deploy your Friday 🇮🇳", data="deploy")],
-           [Button.url("Help Me ❓", "t.me/Fridayot")]
+           [Button.url("Marvyn ❓", "t.me/MarvynSTAR")],
+           [Button.url("Doggy ❓", "t.me/Doggy_cheems")]
        ]
       )
-
-
-# Data's
-
-@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"deploy")))
-async def help(event):
-        await event.delete()
-        if event.query.user_id is not bot.uid:
-            await tgbot.send_message(
-                event.chat_id,
-                message="You Can Deploy Friday In Heroku By Following Steps Bellow, You Can See Some Quick Guides On Support Channel Or On Your Own Assistant Bot. \nThank You For Contacting Me.",
-                buttons = [
-                [Button.url("Deploy Tutorial 📺", "https://youtu.be/xfHcm_e92eQ")],
-                [Button.url("Need Help ❓", "t.me/FridaySupportOfficial")]
-                 ]
-                )
-
 
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"users")))
@@ -110,7 +93,7 @@ async def users(event):
                      event.chat_id,
                      tedt_file,
                      force_document=True,
-                     caption="Total Users In Your Bot.",
+                     caption="Ecco gli utenti che mi hanno avviato.",
                      allow_cache=False
                      )
         else:
@@ -118,7 +101,7 @@ async def users(event):
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"gibcmd")))
 async def users(event):
          await event.delete()
-         grabon = "Hello Here Are Some Commands \n➤ /start - Check if I am Alive \n➤ /ping - Pong! \n➤ /tr <lang-code> \n➤ /broadcast - Sends Message To all Users In Bot \n➤ /id - Shows ID of User And Media. \n➤ /addnote - Add Note \n➤ /notes - Shows Notes \n➤ /rmnote - Remove Note \n➤ /alive - Am I Alive? \n➤ /bun - Works In Group , Bans A User. \n➤ /unbun - Unbans A User in Group \n➤ /prumote - Promotes A User \n➤ /demute - Demotes A User \n➤ /pin - Pins A Message \n➤ /stats - Shows Total Users In Bot"
+         grabon = "Ecco i miei comandi \n➤ /start - Controlla se sono online \n➤ /ping - Pong! \n➤ /tr <lang-code> \n➤ /broadcast - Scrivi un messaggioda mandare a tutti gli utenti che mi hanno avviato \n➤ /id - Mostra gli id degli utenti. \n➤ /addnote - Aggiungi una nota \n➤ /notes - Mostra le note \n➤ /rmnote - Rimuovi una nota \n➤ /alive - Sono online? \n➤ /bun - Banna un utente (solo gruppi). \n➤ /unbun - Sbanna un utente (solo gruppi) \n➤ /prumote - Promuove un utente \n➤ /demute - Declassa un utente \n➤ /pin - Fissa un messaggio\n➤ /stats - Mostra gli utenti che mi hanno avviato"
          await tgbot.send_message(
              event.chat_id,
              grabon
