@@ -170,7 +170,7 @@ async def sedlyfsir(event):
                  pass
     await tgbot.send_message(
         event.chat_id,
-        f"Broadcast Done in {sent_count} Group/Users and I got {error_count} Error and Total Number Was {len(userstobc)}"
+        f"Ho inviato il Broadcast in {sent_count} Gruppi/utenti e ho riscontrato {error_count} Errori e il numero totale è {len(userstobc)}"
         )
 
 
@@ -181,7 +181,7 @@ async def starkisnoob(event):
     
 @tgbot.on(events.NewMessage(pattern="^/help", func=lambda e: e.sender_id == bot.uid))
 async def starkislub(event):
-    grabonx = "Hello Here Are Some Commands \n➤ /start - Check if I am Alive \n➤ /ping - Pong! \n➤ /tr <lang-code> \n➤ /broadcast - Sends Message To all Users In Bot \n➤ /id - Shows ID of User And Media. \n➤ /addnote - Add Note \n➤ /notes - Shows Notes \n➤ /rmnote - Remove Note \n➤ /alive - Am I Alive? \n➤ /bun - Works In Group , Bans A User. \n➤ /unbun - Unbans A User in Group \n➤ /prumote - Promotes A User \n➤ /demute - Demotes A User \n➤ /pin - Pins A Message \n➤ /stats - Shows Total Users In Bot"
+    grabonx = "Ecco i miei comandi \n➤ /start - Controlla se sono online \n➤ /ping - Pong! \n➤ /tr <lang-code> \n➤ /broadcast - Scrivi un messaggioda mandare a tutti gli utenti che mi hanno avviato \n➤ /id - Mostra gli id degli utenti. \n➤ /addnote - Aggiungi una nota \n➤ /notes - Mostra le note \n➤ /rmnote - Rimuovi una nota \n➤ /alive - Sono online? \n➤ /bun - Banna un utente (solo gruppi). \n➤ /unbun - Sbanna un utente (solo gruppi) \n➤ /prumote - Promuove un utente \n➤ /demute - Declassa un utente \n➤ /pin - Fissa un messaggio\n➤ /stats - Mostra gli utenti che mi hanno avviato"
     await event.reply(grabonx)
     
 @tgbot.on(events.NewMessage(pattern="^/block ?(.*)", func=lambda e: e.sender_id == bot.uid))
@@ -194,13 +194,13 @@ async def starkisnoob(event):
         msg.id
         )
     if is_he_added(user_id):
-        await event.reply("Already Blacklisted")
+        await event.reply("Gia in blacklist")
     elif not is_he_added(user_id):
         add_nibba_in_db(
             user_id
           )
-        await event.reply("Blacklisted This Dumb Person")
-        await tgbot.send_message(user_id, "You Have Been Blacklisted And You Can't Message My Master Now.")
+        await event.reply("Ok ho blacklistato questo utente")
+        await tgbot.send_message(user_id, "Sei un blacklist perciò non puoi scrivere al mio [Padrone](tg://user?id={bot.uid}) se sei in blacklist non è un errore.")
 
 @tgbot.on(events.NewMessage(pattern="^/unblock ?(.*)", func=lambda e: e.sender_id == bot.uid))
 async def starkisnoob(event):
@@ -212,10 +212,10 @@ async def starkisnoob(event):
         msg.id
         )
     if not is_he_added(user_id):
-        await event.reply("Not Even. Blacklisted 🤦🚶")
+        await event.reply("Fratm questo utente non era in blacklist")
     elif is_he_added(user_id):
         removenibba(
             user_id
           )
-        await event.reply("DisBlacklisted This Dumb Person")
-        await tgbot.send_message(user_id, "Congo! You Have Been Unblacklisted By My Master.")
+        await event.reply("Ok ho tolto dalla blacklist questo utente")
+        await tgbot.send_message(user_id, "Il mio padrone ti ha tolto dalla blacklist.")
