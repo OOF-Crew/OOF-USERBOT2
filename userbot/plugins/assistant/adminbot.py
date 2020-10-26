@@ -51,21 +51,21 @@ from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from userbot.utils import friday_on_cmd, errors_handler, register, sudo_cmd
 
 # =================== CONSTANT ===================
-PP_TOO_SMOL = "`The image is too small`"
-PP_ERROR = "`Failure while processing the image`"
-NO_ADMIN = "`I am not an admin nub nibba!`"
+PP_TOO_SMOL = "`Immagine troppo piccola bro`"
+PP_ERROR = "`Purtroppo ho sbagliato a processare l'immagine`"
+NO_ADMIN = "`Coglione non sono admin!`"
 NO_PERM = (
-    "`I don't have sufficient permissions! This is so sed. Alexa play Tera Baap Aaya`"
+    "`Non ho abbastanza permessi! :(`"
 )
 NO_SQL = "`Running on Non-SQL mode!`"
 
-CHAT_PP_CHANGED = "`Chat Picture Changed`"
+CHAT_PP_CHANGED = "`Ho cambiato la foto della chat`"
 CHAT_PP_ERROR = (
-    "`Some issue with updating the pic,`"
-    "`maybe coz I'm not an admin,`"
-    "`or don't have enough rights.`"
+    "`Non riesco a cambiare la foto,`"
+    "`forse non sono admin,`"
+    "`o non ho abbastanza permessi.`"
 )
-INVALID_MEDIA = "`Invalid Extension`"
+INVALID_MEDIA = "`Estensione del file sbagliata`"
 
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
@@ -104,13 +104,13 @@ async def ban(event):
     ):
         userids.append(user.id)
     if noob not in userids:
-        await event.reply("You're not an admin!")
+        await event.reply("Non sei admin!")
         return
     chat = await event.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
     if not admin and not creator:
-        await event.reply("I Am Not Admin 🥺.")
+        await event.reply("Non sono admin 🥺.")
         return
 
     user, reason = await get_user_from_event(event)
@@ -121,7 +121,7 @@ async def ban(event):
     try:
         await event.client(EditBannedRequest(event.chat_id, user.id, BANNED_RIGHTS))
     except BadRequestError:
-        await event.reply("No Permission Sar 🤭.")
+        await event.reply("Non ho i permessi 🤭.")
         return
     # Helps ban group join spammers more easily
     try:
@@ -129,12 +129,12 @@ async def ban(event):
         if reply:
              pass
     except BadRequestError:
-        await event.reply("`I dont have message nuking rights! But still he was banned!`")
+        await event.reply("`Ho riscontrato un errore ma ho bannato uguale!`")
         return
     if reason:
-        await event.reply(f"Banned `{str(user.id)}` \nReason: {reason}")
+        await event.reply(f"Bannato `{str(user.id)}` \nMotivo: {reason}")
     else:
-        await event.reply(f"Banned  `{str(user.id)}` !")
+        await event.reply(f"Bannato  `{str(user.id)}` !")
 
 
 @tgbot.on(events.NewMessage(pattern="^/unbun(?: |$)(.*)"))
@@ -146,13 +146,13 @@ async def nothanos(event):
     ):
         userids.append(user.id)
     if noob not in userids:
-        await event.reply("You're not an admin!")
+        await event.reply("Non sei admin!")
         return
     chat = await event.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
     if not admin and not creator:
-        await event.reply("Me Not Admin 🥺")
+        await event.reply("Non sono admin 🥺")
         return
     user = await get_user_from_event(event)
     user = user[0]
@@ -162,9 +162,9 @@ async def nothanos(event):
         return
     try:
         await event.client(EditBannedRequest(event.chat_id, user.id, UNBAN_RIGHTS))
-        await event.reply("`Unbanned Successfully. Granting another chance.🚶`")
+        await event.reply("`Ok l'ho sbannato gli diamo un altra chance.🚶`")
     except BadRequestError:
-        await event.reply("`No Permission 🤭`")
+        await event.reply("`Non ho i permessi 🤭`")
         return
 
 
@@ -178,9 +178,9 @@ async def promote(event):
     ):
         userids.append(user.id)
     if noob not in userids:
-        await event.reply("You're not an admin!")
+        await event.reply("Non sei admin!")
         return
-    """ For .promote command, promotes the replied/tagged person """
+    """ con il comando .promote , promuove la persona indicata """
     # Get targeted chat
     chat = await event.get_chat()
     # Grab admin status or creator in a chat
@@ -189,7 +189,7 @@ async def promote(event):
 
     # If not admin and not creator, also return
     if not admin and not creator:
-        await event.reply("Me Not Admin 🥺")
+        await event.reply("Non sono admin 🥺")
         return
     new_rights = ChatAdminRights(
         add_admins=False,
@@ -201,7 +201,7 @@ async def promote(event):
     )
     user, rank = await get_user_from_event(event)
     if not rank:
-        rank = "mememaster"  # Just in case.
+        rank = "coglione"  # Just in case.
     if user:
         pass
     else:
@@ -209,16 +209,16 @@ async def promote(event):
     # Try to promote if current user is admin or creator
     try:
         await event.client(EditAdminRequest(event.chat_id, user.id, new_rights, rank))
-        await event.reply("`Promoted Successfully! Now gib Party`")
+        await event.reply("`Promosso! FESTA`")
 
     # If Telethon spit BadRequestError, assume
     # we don't have Promote permission
     except BadRequestError:
-        await event.reply("No Permission To Promote 🤭")
+        await event.reply("Non ho il permesso di promuovere 🤭")
         return
 
 
-@tgbot.on(events.NewMessage(pattern="^/demute(?: |$)(.*)"))
+@tgbot.on(events.NewMessage(pattern="^/demote(?: |$)(.*)"))
 async def demote(event):
     userids = []
     noob = event.sender_id
@@ -227,19 +227,19 @@ async def demote(event):
     ):
         userids.append(user.id)
     if noob not in userids:
-        await event.reply("You're not an admin!")
+        await event.reply("Non sei admin!")
         return
-    """ For .demote command, demotes the replied/tagged person """
+    """ Con il comando .demote leva una promozione all'utente indicato """
     # Admin right check
     chat = await event.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
 
     if not admin and not creator:
-        await event.reply("I Am Not Admin 🤭")
+        await event.reply("Non sono admin 🤭")
         return
 
-    rank = "mememaster"  # dummy rank, lol.
+    rank = "Coglione"  # dummy rank, lol.
     user = await get_user_from_event(event)
     user = user[0]
     if user:
@@ -262,9 +262,9 @@ async def demote(event):
     # If we catch BadRequestError from Telethon
     # Assume we don't have permission to demote
     except BadRequestError:
-        await event.reply("Me No Permission 🤔")
+        await event.reply("Non ho i permessi 🤔")
         return
-    await event.reply("`Demoted this retard Successfully!`")
+    await event.reply("`Tolta una promozione a questo utente!`")
 
 @tgbot.on(events.NewMessage(pattern="^/pin(?: |$)(.*)"))
 async def pin(event):
@@ -275,9 +275,9 @@ async def pin(event):
     ):
         userids.append(user.id)
     if noob not in userids:
-        await event.reply("You're not an admin!")
+        await event.reply("Non sei admin!")
         return
-    """ For .pin command, pins the replied/tagged message on the top the chat. """
+        """ Con il comando .pin fissa il messaggio indicato. """
     # Admin or creator check
     chat = await event.get_chat()
     admin = chat.admin_rights
@@ -285,13 +285,13 @@ async def pin(event):
 
     # If not admin and not creator, return
     if not admin and not creator:
-        await event.reply("I Need Administration Permission 🤔")
+        await event.reply("Devo essere amministratore 🤔")
         return
 
     to_pin = event.reply_to_msg_id
 
     if not to_pin:
-        await event.reply("`Reply to a message to pin it.`")
+        await event.reply("`Rispondi a un messaggio per fissarlo.`")
         return
 
     options = event.pattern_match.group(1)
@@ -301,9 +301,9 @@ async def pin(event):
     try:
         await event.client(UpdatePinnedMessageRequest(event.to_id, to_pin, is_silent))
     except BadRequestError:
-        await event.reply("No Permission 🥺")
+        await event.reply("Non ho i permessi giusti 🥺")
         return
-    await event.reply("`Pinned Successfully!`")
+    await event.reply("`Messaggio fissato!`")
     user = await get_user_from_id(msg.from_id, msg)
 
 async def get_user_from_event(event):
@@ -323,7 +323,7 @@ async def get_user_from_event(event):
             user = int(user)
 
         if not user:
-            await event.reply("`Pass the user's username, id or reply!`")
+            await event.reply("`Indica un utente tramite username, id o reply!`")
             return
 
         if event.message.entities is not None:
