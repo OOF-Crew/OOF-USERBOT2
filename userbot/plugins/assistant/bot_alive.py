@@ -37,8 +37,8 @@ from datetime import datetime
 from userbot import Lastupdate
 from userbot.plugins import currentversion
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Unknown"
-PM_IMG = "https://telegra.ph/file/22535f8051a58af113586.jpg"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Userbot"
+PM_IMG = "https://telegra.ph/file/fe3aa74d5a28789b5d40a.jpg"
 pm_caption = "➥ **IL BOT ASSISTENTE È:** `ONLINE`\n\n"
 pm_caption += "➥ **STATUS DEL SISTEMA*
 pm_caption += "➥ **Versione telethon:** `1.15.0` \n"
